@@ -2,7 +2,7 @@
 import { v4 as uuid } from "uuid";
 import { FormEvent, useState } from "react";
 
-import Profile_Pic from "../assets/Profile_Pic.webp";
+import Profile_Pic from "../assets/Profile_pic.webp";
 import { Message } from "../typings";
 
 type Props = {};
@@ -40,10 +40,12 @@ const ChatInput = (props: Props) => {
 			});
 
 			const data = await res.json();
+			console.log("MESSAGE: ", data);
 		};
+		uploadMessage();
 	};
 	return (
-		<form onSubmit={(e) => addMessage} className="formStyle">
+		<form onSubmit={addMessage} className="formStyle">
 			<input
 				type="text"
 				value={input}
