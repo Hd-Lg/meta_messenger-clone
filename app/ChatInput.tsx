@@ -1,6 +1,8 @@
 "use client";
 import { v4 as uuid } from "uuid";
 import { FormEvent, useState } from "react";
+import useSWR from "swr";
+import fetcher from "../utils/fetchMessages";
 
 import Profile_Pic from "../assets/Profile_pic.webp";
 import { Message } from "../typings";
@@ -9,6 +11,10 @@ type Props = {};
 
 const ChatInput = (props: Props) => {
 	const [input, setInput] = useState("");
+	const { data, error, mutate } = useSWR("/api/getMessages", fetcher);
+
+	console.log(data);
+
 	const addMessage = (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
@@ -42,7 +48,10 @@ const ChatInput = (props: Props) => {
 			const data = await res.json();
 			console.log("MESSAGE: ", data);
 		};
-		uploadMessage();
+
+		await mutate(uploadMessage);
+		const message = data.message;
+		const messages = [...]
 	};
 	return (
 		<form onSubmit={addMessage} className="formStyle">

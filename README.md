@@ -7,3 +7,4 @@ Stack:
 - Upstash,
 - Ioredis,
 - Redis,
+- SWR - React Hooks for Data Fetching
