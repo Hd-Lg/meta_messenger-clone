@@ -1,11 +1,13 @@
-import React from "react";
+import ChatInput from "./ChatInput";
+import MessageList from "./MessageList";
 
 type Props = {};
 
 const page = (props: Props) => {
 	return (
 		<div>
-			<h1>Meta Messenger</h1>
+			<MessageList />
+			<ChatInput />
 		</div>
 	);
 };
