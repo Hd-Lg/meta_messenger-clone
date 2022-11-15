@@ -11,11 +11,15 @@ type Props = {};
 
 const ChatInput = (props: Props) => {
 	const [input, setInput] = useState("");
-	const { data, error, mutate } = useSWR("/api/getMessages", fetcher);
+	const {
+		data: messages,
+		error,
+		mutate,
+	} = useSWR("/api/getMessages", fetcher);
 
-	console.log(data);
+	console.log(messages);
 
-	const addMessage = (e: FormEvent<HTMLFormElement>) => {
+	const addMessage = async (e: FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 
 		if (!input) return;
@@ -43,15 +47,15 @@ const ChatInput = (props: Props) => {
 				body: JSON.stringify({
 					message,
 				}),
-			});
+			}).then((res) => res.json());
 
-			const data = await res.json();
-			console.log("MESSAGE: ", data);
+			return [res.message, ...messages!];
 		};
 
-		await mutate(uploadMessage);
-		const message = data.message;
-		const messages = [...]
+		await mutate(uploadMessage, {
+			optimisticData: [message, ...messages!],
+			rollbackOnError: true,
+		});
 	};
 	return (
 		<form onSubmit={addMessage} className="formStyle">
