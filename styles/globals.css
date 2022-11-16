@@ -12,6 +12,6 @@
 	}
 
 	.formStyle {
-		@apply flex px-10 py-5 space-x-2 border-t border-gray-100 fixed bottom-0 z-50 w-full;
+		@apply flex px-10 py-5 space-x-2 border-t border-gray-100 fixed bottom-0 z-50 w-full bg-white;
 	}
 }
